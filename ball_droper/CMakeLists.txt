@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   mavros_msgs
   roscpp
   std_msgs
+  ball_droper_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -70,7 +71,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   mavros_msgs#   std_msgs
+#   mavros_msgs
+#   std_msgs
 # )
 
 ################################################
@@ -204,3 +206,5 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+add_executable(ball_droper src/ball_droper.cpp)
+target_link_libraries(ball_droper ${catkin_LIBRARIES})

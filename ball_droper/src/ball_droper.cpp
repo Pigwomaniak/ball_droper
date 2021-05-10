@@ -5,7 +5,7 @@
 #define DROP_A 1
 #define DROP_B 2
 #define NOTHING_TO_DROP 0
-#define SERVO_DROP_CHANNEL 8
+#define SERVO_DROP_CHANNEL 6
 #define MID_SERVO 1500
 #define A_SERVO_POS 1100
 #define B_SERVO_POS 1900
@@ -49,9 +49,12 @@ int main(int argc, char** argv){
             case DROP_A:
                 overrideRcIn.channels[SERVO_DROP_CHANNEL] = A_SERVO_POS;
                 override_pub.publish(overrideRcIn);
+                ros::spinOnce();
                 ros::Duration(1).sleep();
                 overrideRcIn.channels[SERVO_DROP_CHANNEL] = MID_SERVO;
                 override_pub.publish(overrideRcIn);
+                ros::spinOnce();
+                ball_to_drop = NOTHING_TO_DROP;
                 break;
             case DROP_B:
                 overrideRcIn.channels[SERVO_DROP_CHANNEL] = B_SERVO_POS;
@@ -59,8 +62,11 @@ int main(int argc, char** argv){
                 ros::Duration(1).sleep();
                 overrideRcIn.channels[SERVO_DROP_CHANNEL] = MID_SERVO;
                 override_pub.publish(overrideRcIn);
+                ros::spinOnce();
+                ball_to_drop = NOTHING_TO_DROP;
                 break;
             default:
+                ball_to_drop = NOTHING_TO_DROP;
                 break;
         }
         rate.sleep();
